@@ -1,0 +1,31 @@
+# ----------------------------------------------------
+# 1. 路径配置 (假设 data.yaml 和 traffic_sign_data 文件夹在同一级)
+# ----------------------------------------------------
+path: D:\c_d\d_app\d_cod_tool\jetbrain_fil\pycharm_fil\26\0306\yolo_train05\datasets\mineset   # 数据集根目录的相对路径
+train: train/images             # 相对于 path 字段的路径
+val: valid/images               # 相对于 path 字段的路径
+test: test/images               # 相对于 path 字段的路径
+
+# ----------------------------------------------------
+# 2. 类别配置
+# 2. 类别配置
+# 2. 类别配置
+## ----------------------------------------------------
+nc: 15
+names: ['Green Light',
+        'Red Light',
+        'Speed Limit 10',
+        'Speed Limit 100',
+        'Speed Limit 110',
+        'Speed Limit 120',
+        'Speed Limit 20',
+        'Speed Limit 30',
+        'Speed Limit 40',
+        'Speed Limit 50',
+        'Speed Limit 60',
+        'Speed Limit 70',
+        'Speed Limit 80',
+        'Speed Limit 90',
+        'Stop']
+
+
