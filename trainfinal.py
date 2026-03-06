@@ -13,7 +13,9 @@ if __name__ == '__main__':
     #   'wiou'       -> 实验3: YOLOv8n + WIoU v3
     #   'final'      -> 实验4: YOLOv8n + CBAM + WIoU v3 (完整版)
 
-    experiment_tag = 'cbam'  # ← 【每次训练前改这里！】
+    experiment_tag = 'baseline'  # ← 【每次训练前改这里！】
+
+    experiment_result='030602'
 
     # 训练参数
     EPOCHS = 100                # 正式训练用 100-150，测试用 3-10
@@ -54,16 +56,17 @@ if __name__ == '__main__':
     # 根据实验标签选择模型配置
     if experiment_tag in ['baseline', 'wiou']:
         print("\n📦 加载模型: YOLOv8n (标准版)")
-        model = YOLO('yolov8n.pt')
+        # model = YOLO('yolov8n.pt')
+        model = YOLO('yolov8.yaml')
     elif experiment_tag in ['cbam', 'final']:
         print("\n📦 加载模型: YOLOv8n-CBAM (改进版)")
         model = YOLO('yolov8-cbam.yaml')
-        print("🔄 正在加载预训练权重...")
-        try:
-            model.load('yolov8n.pt')
-            print("✅ 预训练权重加载成功")
-        except Exception as e:
-            print(f"⚠️  权重加载失败: {e}")
+        # print("🔄 正在加载预训练权重...")
+        # try:
+        #     model.load('yolov8n.pt')
+        #     print("✅ 预训练权重加载成功")
+        # except Exception as e:
+        #     print(f"⚠️  权重加载失败: {e}")
 
     # 开始训练
     print("\n" + "="*70)
@@ -75,8 +78,9 @@ if __name__ == '__main__':
         epochs=EPOCHS,
         imgsz=640,
         batch=BATCH_SIZE,
+        pretrained=False,     # <--- 【关键】必须加上这一行，强制从头训练
         workers=4,                      # 数据加载线程数
-        project='runs/ablation/030601',        # 保存路径
+        project='runs/ablation/030602',        # 保存路径
         name=experiment_tag,            # 实验名称
         patience=50,                    # 早停轮数
         save=True,                      # 保存模型
@@ -109,9 +113,9 @@ if __name__ == '__main__':
     print("\n" + "="*70)
     print(f"✅ 实验 [{experiment_tag.upper()}] 训练完成!")
     print("="*70)
-    print(f"📁 结果保存: runs/ablation/030601/{experiment_tag}/")
-    print(f"📊 训练曲线: runs/ablation/030601/{experiment_tag}/results.png")
-    print(f"🏆 最佳模型: runs/ablation/030601/{experiment_tag}/weights/best.pt")
+    print(f"📁 结果保存: runs/ablation/030602/{experiment_tag}/")
+    print(f"📊 训练曲线: runs/ablation/030602/{experiment_tag}/results.png")
+    print(f"🏆 最佳模型: runs/ablation/030602/{experiment_tag}/weights/best.pt")
 
     try:
         print("\n📈 训练结果摘要:")
